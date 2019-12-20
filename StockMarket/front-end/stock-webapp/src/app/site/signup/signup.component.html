@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="container">
+      <div class="row d-flex justify-content-center">
+          <div class="col-6 mt-3">
+
+              <div class="card">
+                <!-- card header -->
+                <div class="card-header">
+                  <div class="form-row">
+                      <h2>Signup</h2>
+                  </div>
+                  <span>
+                    Fill (*) All are mandatory fields..,
+                </span>
+                </div>
+                <!-- card body -->
+                  <div class="card-body">
+                  <!-- User Form -->
+                    <form action="" #userForm = "ngForm" (submit)="onSubmitUser(userForm.value)">
+
+                          <div class="form-row">                              
+                              <div class="form-group col-12">
+                                  <label for="ususername">User Name<span class="text-danger mr-1">*</span></label>
+                                  <input 
+                                  type="text" 
+                                  class="form-control" 
+                                  name="ususername" 
+                                  id="ususername"
+                                  #ususername = "ngModel"
+                                  [(ngModel)] = "ususername.value"
+                                  placeholder="Enter Username" 
+                                  required>
+                              </div>
+                              <div class="col-12 alert-danger alert" [ngClass]="ususername.errors?.required && ususername.touched ? '' : 'd-none' ">
+                                  <div class="d-flex justify-content-center" >
+                                  username is required</div>
+                              </div>                              
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group col-12">
+                                  <label for="uscontactnumber">Contact Number<span class="text-danger mr-1">*</span></label>
+                                  <input 
+                                  type="number" 
+                                  class="form-control" 
+                                  name="uscontactnumber" 
+                                  id="uscontactnumber"
+                                  #uscontactnumber = "ngModel"
+                                  [(ngModel)] = "uscontactnumber.value"
+                                  placeholder="Enter ContactNumber"                          
+                                  required>
+                              </div>
+                              <div class="col-12 alert-danger alert" [ngClass]="uscontactnumber.errors?.required && uscontactnumber.touched ? '' : 'd-none' ">
+                                  <div class="d-flex justify-content-center" >
+                                  ContactNumber is required</div>
+                              </div>
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group col-12">
+                                  <label for="usemailid">Email id<span class="text-danger mr-1">*</span></label>
+                                  <input 
+                                  type="email" 
+                                  class="form-control" 
+                                  name="usemailid" 
+                                  id="usemailid"
+                                  #usemail = "ngModel"
+                                  [(ngModel)] = "usemail.value"
+                                  placeholder="Enter Email id"                          
+                                  required>
+                              </div>                
+
+                              <div class="col-12 alert-danger alert" [ngClass]="usemail.errors?.required && usemail.touched ? '' : 'd-none' ">
+                                  <div class="d-flex justify-content-center" >
+                                  email is required</div>
+                              </div>
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group col-12">
+                                  <label for="uspassword">Password<span class="text-danger mr-1">*</span></label>
+                                  <input 
+                                  type="password" 
+                                  class="form-control" 
+                                  name="uspassword" 
+                                  id="uspassword"
+                                  #uspassword = "ngModel"
+                                  [(ngModel)] = "uspassword.value"
+                                  placeholder="Enter Password"
+                                  required>
+                              </div>
+
+                              <div class="col-12 alert-danger alert" [ngClass]="uspassword.errors?.required && uspassword.touched ? '' : 'd-none' ">
+                                  <div class="d-flex justify-content-center" >
+                                  password is required</div>
+                              </div>
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group col-3">
+                                <button type="button" name="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#userModal" (click)="onClick(userForm)" >Signup</button>
+                              </div>
+
+                              <div class="form-group col-7 mx-2">
+                                  {{errorMsg}}
+                              </div>
+
+                          </div>
+
+                          
+
+                          <div class="modal fade" id="userModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="userModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span [ngClass]="flagForFields == true ? 'm-1 p-1 alert alert-danger' : 'd-none' ">
+                                                    User Name has already registred try new name
+                                                </span>
+                                                <span [ngClass]="flagForFields == false ? '' : 'd-none' ">
+                                                    Click save to Update your details..,
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    [ngClass]="flagForFields == false ? '' : 'd-none' ">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                      </form>
+
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+  </div>
+  </div>

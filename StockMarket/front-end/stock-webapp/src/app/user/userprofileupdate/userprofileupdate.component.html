@@ -1,0 +1,129 @@
+<div class="sidebar col-auto">
+  <a class="text-light font-italic"><i class=""></i>Hello {{userName()}}</a>
+  <div class="text-light border mb-3"></div>
+  <a class="btn text-left font-italic text-white" routerLink="/userupdate" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Update profile</a>
+  <a class="btn text-left font-italic text-white"  routerLink="/usercompany" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">view companys</a>
+
+  <div class="m-2">
+    <button type="button" class="btn btn-labeled btn-success mx-2">
+      <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+  </div>
+</div>
+
+
+<div class="container mt-5">
+  <div class="main row">
+    
+    <div class="card bg-light mb-3">
+      <div class="card-header"> <h5> Profile Update </h5> </div>
+      <div class="card-body">
+
+        <form action="" #userupdateForm = "ngForm" (submit)="onSubmitUser(userupdateForm.value)">
+
+          <div class="form-row">                              
+              <div class="form-group col-6">
+                  <label for="ususername">User Name </label>
+                  <input 
+                  type="text" 
+                  class="form-control" 
+                  name="ususername" 
+                  id="ususername"
+                  #ususername = "ngModel"
+                  [ngModel] = "userForm.username"
+                  placeholder="Enter Username" 
+                  required
+                  disabled>
+              </div>
+             
+
+              <div class="form-group col-6">
+                <label for="usemailid">Email id </label>
+                <input 
+                type="email" 
+                class="form-control" 
+                name="usemailid" 
+                id="usemailid"
+                #usemail = "ngModel"
+                [ngModel] = "userForm.emailid"
+                placeholder="Enter Email id"                          
+                required
+                disabled>
+            </div>              
+              
+          </div>
+    
+          <div class="form-row">
+              <div class="form-group col-6">
+                  <label for="uscontactnumber">Contact Number</label>
+                  <input 
+                  type="number" 
+                  class="form-control" 
+                  name="uscontactnumber" 
+                  id="uscontactnumber"
+                  #uscontactnumber = "ngModel"
+                  [(ngModel)] = "userForm.contactNumber"
+                  placeholder="Enter ContactNumber"                          
+                  required>
+              </div>
+              <div class="form-group col-6 mt-3">
+                <span class="font-weight-bold">NOTE:</span><p class="card-text"><small class="text-muted">Updating password is note mandatory filed if u need to update password and confirm password should be same</small></p>
+              </div>
+              <div class="col-6 alert-danger alert" [ngClass]="uscontactnumber.errors?.required && uscontactnumber.touched ? '' : 'd-none' ">
+                  <div class="d-flex justify-content-center" >
+                  ContactNumber is required</div>
+              </div>
+          </div>
+    
+          
+          <div class="form-row">
+              <div class="form-group col-6">
+                  <label for="uspassword">Password</label>
+                  <input 
+                  type="password" 
+                  class="form-control" 
+                  name="uspassword" 
+                  id="uspassword"
+                  #uspassword = "ngModel"
+                  [(ngModel)] = "uspassword.value"
+                  placeholder="Enter Password"
+                  >
+              </div>
+
+              <div class="form-group col-6">
+                <label for="usconpassword">Confirm Password</label>
+                <input 
+                type="password" 
+                class="form-control" 
+                name="usconpassword" 
+                id="usconpassword"
+                #usconpassword = "ngModel"
+                [(ngModel)] = "usconpassword.value"
+                placeholder="Re-Enter Password"
+                >
+            </div>
+              <div class="col-6 alert-danger alert" [ngClass]="uspassword.errors?.required && uspassword.touched ? '' : 'invisible' ">
+                  <span class="d-flex justify-content-center" >
+                  password is required</span>
+              </div>
+            <div class="col-6 alert-danger alert" [ngClass]="(usconpassword.value != uspassword.value) && usconpassword.touched ? '' : 'd-none' ">
+              <span class="d-flex justify-content-center" >
+              password should be same on both side</span>
+          </div>
+          </div>
+
+          <div class="form-row">
+            <button class="btn btn-success" type ="submit" >Update</button>
+          </div>
+    
+    
+      </form>
+
+        
+      </div>
+
+
+</div>
+</div>
+

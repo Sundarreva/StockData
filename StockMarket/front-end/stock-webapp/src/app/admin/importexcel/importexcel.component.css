@@ -1,0 +1,8 @@
+.file-upload input[type='file'] {
+    display: none;
+}
+  
+.custom-file-label.rounded-pill::after {
+  border-radius: 0 50rem 50rem 0;
+}
+  

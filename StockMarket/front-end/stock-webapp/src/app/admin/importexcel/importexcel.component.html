@@ -1,0 +1,124 @@
+<div class="sidebar col-auto ">
+    <a class="text-light font-italic"><i class=""></i> ADMIN Logged</a>
+    <div class="text-light border mb-3"></div>
+    <a class="btn text-left font-italic text-white" routerLink="/import" routerLinkActive="active-link">
+        <img src="https://img.icons8.com/office/30/000000/user.png">ImportData</a>
+    <a class="btn text-left font-italic text-white" routerLink="/stockexchange" routerLinkActive="active-link">
+        <img src="https://img.icons8.com/office/30/000000/user.png">Stock Exchange</a>
+    <a class="btn text-left font-italic text-white" routerLink="/addstock" routerLinkActive="active-link">
+        <img src="https://img.icons8.com/office/30/000000/user.png">Add Stock</a>
+        <a class="btn text-left font-italic text-white" routerLink="/company" routerLinkActive="active-link">
+            <img src="https://img.icons8.com/office/30/000000/user.png">Companys</a>
+
+    <div class="m-2">
+        <button type="button" class="btn btn-labeled btn-success mx-2">
+            <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+    </div>
+</div>
+
+
+
+
+<section>
+    <div class="container">
+        <div class="row mb-1 text-center text-dark font-weight-bold">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="display-4">File uploader</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+
+                <form [formGroup]="form" (ngSubmit)="onUpload()">
+
+                    <div class="p-3 bg-white shadow rounded-lg"><img
+                            src="https://res.cloudinary.com/mhmd/image/upload/v1557366994/img_epm3iz.png" alt=""
+                            width="200" class="d-block mx-auto mb-4 rounded-pill">
+
+                        <label for="fileUpload" class="file-upload btn btn-primary btn-block rounded-pill shadow"><i
+                                class="fa fa-upload mr-2"></i>Browse for file ...
+                            <input id="fileUpload" accept=".pdf,.doc,.docx,.xlsx" (change)="fileUploadEvent($event)"
+                                type="file">
+                        </label>
+
+                        <div class="progress mt-4">
+                            <div class="progress-bar text-center text-dark progress-bar-striped progress-bar-animated m-1"
+                                [ngStyle]="{'width': percentDone + '%'}">{{percentDone}}%</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Upload File</button>
+                            </div>
+                            <div [ngClass]="percentDone == 100 ? '' : 'invisible' ">
+                                <button class="btn btn-primary" type="button" (click)="getSummary()"> Get
+                                    Summary</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Summary -->
+
+<section>
+    <div class="container" [ngClass]="uploadSuccess == true ? '' : 'invisible' ">
+        <div class="row mb-1 text-center text-dark font-weight-bold">
+            <div class="col-lg-10 mx-auto">
+                <h1>Summary</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+
+                <div class="p-3 bg-white shadow rounded-lg">
+
+                    <!-- List -->
+                    <div class="card pmd-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Summary Repost</h2>
+                        </div>
+
+                        <ul class="list-group pmd-list">
+
+                            <li class="list-group-item d-flex flex-row">
+                                <i class="material-icons pmd-list-icon align-middle">notifications</i>
+                                <div class="media-body font-weight-bold">Company name: <span
+                                        class="ml-1">{{companyName}}</span></div>
+                            </li>
+
+                            <li class="list-group-item d-flex flex-row">
+                                <i class="material-icons pmd-list-icon align-middle">notifications</i>
+                                <div class="media-body font-weight-bold">No Of Records: <span
+                                        class="ml-1">{{noOfRecords}}</span></div>
+                            </li>
+
+                            <li class="list-group-item d-flex flex-row">
+                                <i class="material-icons pmd-list-icon align-middle">notifications</i>
+                                <div class="media-body font-weight-bold">Minimum date: <span
+                                        class="ml-1">{{minDate | date}}</span></div>
+                            </li>
+
+                            <li class="list-group-item d-flex flex-row">
+                                <i class="material-icons pmd-list-icon align-middle">notifications</i>
+                                <div class="media-body font-weight-bold">Maximum date: <span
+                                        class="ml-1">{{maxDate | date}}</span></div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

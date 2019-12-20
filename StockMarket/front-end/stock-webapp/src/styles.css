@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+.modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+}
+
+.icon-align {
+    vertical-align: sub;
+  }
+
+body {
+    background-color: honeydew;
+    min-height: 100vh; 
+}
+
+/* side navbar effects end */
+.sidebar {
+    height: auto;
+    width: 200px;
+    position: absolute;
+    z-index: 1;
+    top: 160px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 16px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 25px;
+  }
+  
+  .sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  .main {
+    margin-left: 220px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+/* side navbar effects end */

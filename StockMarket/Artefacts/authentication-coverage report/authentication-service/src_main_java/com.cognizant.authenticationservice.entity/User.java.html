@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (20 Dec, 2019 11:29:24 AM)</a> &gt; <a href="../../index.html" class="el_group">authentication-service</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.authenticationservice.entity</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.cognizant.authenticationservice.entity;
+
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name=&quot;user&quot;)
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = &quot;us_id&quot;)
+	private int id;
+
+	@NotNull
+	@Column(name = &quot;us_name&quot;)
+	private String username;
+
+	@NotNull
+	@Column(name = &quot;us_password&quot;)
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = &quot;user_role&quot;, joinColumns = @JoinColumn(name = &quot;ur_us_id&quot;), inverseJoinColumns = @JoinColumn(name = &quot;ur_ro_id&quot;))
+	private Set&lt;Role&gt; userRole;
+	
+	@NotNull
+	@Column(name = &quot;us_email&quot;)
+	private String emailid;
+	
+	@NotNull
+	@Column(name = &quot;us_mobile_number&quot;)
+	private String contactNumber;
+	
+	@NotNull
+	@Column(name = &quot;us_confirmed&quot;,  columnDefinition = &quot;tinyint&quot;)
+	private boolean confirmed;
+	
+	public User() {
+<span class="fc" id="L50">		super();</span>
+<span class="fc" id="L51">	}</span>
+
+	public User(int id, @NotNull String username, @NotNull String password, Set&lt;Role&gt; userRole, @NotNull String emailid,
+			@NotNull String contactNumber, @NotNull boolean confirmed) {
+<span class="fc" id="L55">		super();</span>
+<span class="fc" id="L56">		this.id = id;</span>
+<span class="fc" id="L57">		this.username = username;</span>
+<span class="fc" id="L58">		this.password = password;</span>
+<span class="fc" id="L59">		this.userRole = userRole;</span>
+<span class="fc" id="L60">		this.emailid = emailid;</span>
+<span class="fc" id="L61">		this.contactNumber = contactNumber;</span>
+<span class="fc" id="L62">		this.confirmed = confirmed;</span>
+<span class="fc" id="L63">	}</span>
+
+	public int getId() {
+<span class="fc" id="L66">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L70">		this.id = id;</span>
+<span class="fc" id="L71">	}</span>
+
+	public String getUsername() {
+<span class="fc" id="L74">		return username;</span>
+	}
+
+	public void setUsername(String username) {
+<span class="fc" id="L78">		this.username = username;</span>
+<span class="fc" id="L79">	}</span>
+
+	public String getPassword() {
+<span class="fc" id="L82">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="fc" id="L86">		this.password = password;</span>
+<span class="fc" id="L87">	}</span>
+
+	public Set&lt;Role&gt; getUserRole() {
+<span class="fc" id="L90">		return userRole;</span>
+	}
+
+	public void setUserRole(Set&lt;Role&gt; userRole) {
+<span class="fc" id="L94">		this.userRole = userRole;</span>
+<span class="fc" id="L95">	}</span>
+
+	public String getEmailid() {
+<span class="fc" id="L98">		return emailid;</span>
+	}
+
+	public void setEmailid(String emailid) {
+<span class="fc" id="L102">		this.emailid = emailid;</span>
+<span class="fc" id="L103">	}</span>
+
+	public String getContactNumber() {
+<span class="fc" id="L106">		return contactNumber;</span>
+	}
+
+	public void setContactNumber(String contactNumber) {
+<span class="fc" id="L110">		this.contactNumber = contactNumber;</span>
+<span class="fc" id="L111">	}</span>
+
+	public boolean isConfirmed() {
+<span class="fc" id="L114">		return confirmed;</span>
+	}
+
+	public void setConfirmed(boolean confirmed) {
+<span class="fc" id="L118">		this.confirmed = confirmed;</span>
+<span class="fc" id="L119">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L123">		return &quot;User [id=&quot; + id + &quot;, username=&quot; + username + &quot;, password=&quot; + password + &quot;, userRole=&quot; + userRole</span>
+<span class="fc" id="L124">				+ &quot;, emailid=&quot; + emailid + &quot;, contactNumber=&quot; + contactNumber + &quot;, confirmed=&quot; + confirmed + &quot;]&quot;;</span>
+	}	
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>Merged (20 Dec, 2019 11:29:24 AM)</div></body></html>

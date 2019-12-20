@@ -1,0 +1,15 @@
+<div class="sidebar col-auto">
+  <a class="text-light font-italic"><i class=""></i>Hello {{userName()}}</a>
+  <div class="text-light border mb-3"></div>
+  <a class="btn text-left font-italic text-white" routerLink="/userupdate" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Update profile</a>
+  <a class="btn text-left font-italic text-white"  routerLink="/usercompany" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">view companys</a>
+
+  <div class="m-2">
+    <button type="button" class="btn btn-labeled btn-success mx-2">
+      <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+  </div>
+</div>
+
+<app-usercompany></app-usercompany>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AuthenticationServiceApplicationTests.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (20 Dec, 2019 11:29:24 AM)</a> &gt; <a href="../../index.html" class="el_group">authentication-service</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.authenticationservice</a> &gt; <span class="el_source">AuthenticationServiceApplicationTests.java</span></div><h1>AuthenticationServiceApplicationTests.java</h1><pre class="source lang-java linenums">package com.cognizant.authenticationservice;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.cognizant.authenticationservice.entity.ConfirmationToken;
+import com.cognizant.authenticationservice.entity.Role;
+import com.cognizant.authenticationservice.entity.User;
+import com.cognizant.authenticationservice.exception.UserAlreadyExistException;
+import com.cognizant.authenticationservice.repository.ConfirmationTokenRepository;
+import com.cognizant.authenticationservice.repository.RoleRepository;
+import com.cognizant.authenticationservice.repository.UserRepository;
+import com.cognizant.authenticationservice.security.AppUserDetailsService;
+import com.cognizant.authenticationservice.service.ConfirmationTokenService;
+import com.cognizant.authenticationservice.service.EmailSenderService;
+import com.cognizant.authenticationservice.service.UserService;
+
+@SpringBootTest
+<span class="fc" id="L34">class AuthenticationServiceApplicationTests {</span>
+
+	@MockBean
+	UserRepository userRepository;
+	
+	@MockBean
+	RoleRepository roleRepository;
+	
+	@MockBean
+	ConfirmationTokenRepository confirmationTokenRepository;
+	
+	@Autowired
+	EmailSenderService emailSenderService;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	ConfirmationTokenService confirmationTokenService;
+	
+	@Autowired
+	AppUserDetailsService appUserDetailsService; 
+	
+	@Test 
+	public void testSignupUser() {
+<span class="fc" id="L59">		User user = createUser();</span>
+<span class="fc" id="L60">		Mockito.when(userRepository.findByUsername(user.getUsername())).thenReturn(null);</span>
+<span class="fc" id="L61">		assertAll(() -&gt; userService.signup(user));</span>
+<span class="fc" id="L62">	}</span>
+	
+	@Test 
+	public void testSignupExistUser() {
+<span class="fc" id="L66">		User user = createUser();</span>
+<span class="fc" id="L67">		Mockito.when(userRepository.findByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="fc" id="L68">		Mockito.when(userRepository.findByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="pc" id="L69">		Exception exception = assertThrows(UserAlreadyExistException.class, ()-&gt; userService.signup(user));</span>
+<span class="fc" id="L70">		assertTrue(&quot;User Already Exist&quot;.contains(exception.getMessage()));</span>
+<span class="fc" id="L71">	}</span>
+	
+	@Test
+	public void testFindbyName() {
+<span class="fc" id="L75">		User user = createUser();</span>
+<span class="fc" id="L76">		Mockito.when(userService.getByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="fc" id="L77">		assertEquals(user,userService.getByUsername(user.getUsername()));</span>
+<span class="fc" id="L78">	}</span>
+	
+	@Test
+	public void testtokenservice() {
+<span class="fc" id="L82">		String token = &quot;123&quot;;</span>
+<span class="fc" id="L83">		ConfirmationToken conf = new ConfirmationToken();</span>
+<span class="fc" id="L84">		conf.setConfirmationToken(token);</span>
+<span class="fc" id="L85">		conf.setCreatedDate(new Date());</span>
+<span class="fc" id="L86">		conf.setUser(createUser());</span>
+<span class="fc" id="L87">		conf.setTokenid(1);</span>
+<span class="fc" id="L88">		User user = createUser();</span>
+<span class="fc" id="L89">		Mockito.when(confirmationTokenRepository.findByConfirmationToken(token)).thenReturn(conf);</span>
+<span class="fc" id="L90">		Mockito.when(userService.getByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="fc" id="L91">		assertEquals(null , confirmationTokenService.confirmMailAddress(token));</span>
+<span class="fc" id="L92">	}</span>
+	
+	@Test
+	public void testUpdateUser() {
+<span class="fc" id="L96">		User user = createUser();</span>
+<span class="fc" id="L97">		Mockito.when(userService.getByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="fc" id="L98">		assertNotEquals(user,userService.updateUser(user));</span>
+		
+<span class="fc" id="L100">	}</span>
+	
+	@Test
+	public void appUserDetailsService() {
+<span class="fc" id="L104">		User user = createUser();</span>
+<span class="fc" id="L105">		Mockito.when(userService.getByUsername(user.getUsername())).thenReturn(null);</span>
+<span class="pc" id="L106">		Exception exception = assertThrows(UsernameNotFoundException.class, () -&gt; appUserDetailsService.loadUserByUsername(user.getUsername()));</span>
+<span class="fc" id="L107">		assertEquals(exception.getMessage(),&quot;user&quot;);</span>
+<span class="fc" id="L108">	}</span>
+	
+	@Test
+	public void appUserDetailsServicewithnull() {
+<span class="fc" id="L112">		User user = createUser();</span>
+<span class="fc" id="L113">		Mockito.when(userService.getByUsername(user.getUsername())).thenReturn(user);</span>
+<span class="nc" id="L114">		assertAll(() -&gt;appUserDetailsService.loadUserByUsername(user.getUsername()));</span>
+<span class="nc" id="L115">	}</span>
+	
+
+	
+	public User createUser() {
+		
+<span class="fc" id="L121">		User user = new User();</span>
+<span class="fc" id="L122">		user.setUsername(&quot;user&quot;);</span>
+<span class="fc" id="L123">		user.setEmailid(&quot;mailid@mail.com&quot;);</span>
+<span class="fc" id="L124">		user.setContactNumber(&quot;939393939&quot;);</span>
+<span class="fc" id="L125">		user.setPassword(&quot;$2a$10$R/lZJuT9skteNmAku9Y7aeutxbOKstD5xE5bHOf74M2PHZipyt3yK&quot;);</span>
+<span class="fc" id="L126">		Set&lt;Role&gt; userRole = new HashSet&lt;Role&gt;();</span>
+<span class="fc" id="L127">		Role role = roleRepository.findByName(&quot;ROLE_USER&quot;);</span>
+<span class="fc" id="L128">		userRole.add(role);</span>
+<span class="fc" id="L129">		user.setUserRole(userRole);</span>
+<span class="fc" id="L130">		user.setConfirmed(false);</span>
+		
+<span class="fc" id="L132">		return user;</span>
+		
+	}
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>Merged (20 Dec, 2019 11:29:24 AM)</div></body></html>

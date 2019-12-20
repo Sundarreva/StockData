@@ -1,0 +1,20 @@
+.jumbotron {
+    background:url("https://images.unsplash.com/photo-1493723843671-1d655e66ac1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-bottom: 2px;
+  }
+
+
+  /*  */
+  .carousel-item {
+    height: 50vh;
+    min-height: 150px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  /*  */

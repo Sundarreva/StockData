@@ -1,0 +1,24 @@
+<!-- search bar -->
+<div class="jumbotron search">
+  <div>
+    <div class="text-danger mb-1">
+      <label for="search">
+        <h3 class="margin">  <u>Find Company</u> </h3>
+      </label>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label for="search"><span class="input-group-text" id="basic-addon1"><i
+              class="material-icons">remove_from_queue</i></span></label>
+      </div>
+      <input 
+      type="text" 
+      class="form-control margin"
+      name="search" 
+      id="search"
+      [(ngModel)] = "searchString"
+      (keyup) = "searching()"
+      placeholder="Search company" name="search" id="search">
+    </div>
+  </div>
+</div>

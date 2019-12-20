@@ -1,0 +1,137 @@
+<div class="sidebar col-auto ">
+  <a class="text-light font-italic"><i class=""></i> ADMIN Logged</a>
+  <div class="text-light border mb-3"></div>
+  <a class="btn text-left font-italic text-white" routerLink="/import" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">ImportData</a>
+  <a class="btn text-left font-italic text-white" routerLink="/stockexchange" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Stock Exchange</a>
+  <a class="btn text-left font-italic text-white" routerLink="/addstock" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Add Stock</a>
+    <a class="btn text-left font-italic text-white" routerLink="/company" routerLinkActive="active-link">
+      <img src="https://img.icons8.com/office/30/000000/user.png">Companys</a>
+
+  <div class="m-2">
+    <button type="button" class="btn btn-labeled btn-success mx-2">
+      <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+  </div>
+</div>
+
+
+
+<!-- add stock exchange -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <div class="margin-tops p-4 background-image-inside rounded card card-design">
+        <h3 class="mt-4 font-styling-head">Add Stock Exchange</h3>
+        <form #myform="ngForm">
+          <div class="row mt-5">
+            <div class="col-md-6 col-sm-12">
+              <label for="name" class="font-styling">Stock Exchange Name</label> 									
+                <input type="text" 
+                  class="form-control" 
+                  id="name"
+                  name="name" 
+                  #name="ngModel" 
+                  [(ngModel)]="stockExchange.stockExchange" 
+                  placeholder="Enter name"
+                  required 
+                  minlength="3"
+                  maxlength="20">
+            
+         
+          <div class="validation-font" *ngIf="((name.touched) && (name.errors?.required)) "> Name required</div>
+          <div class="validation-font" *ngIf="name.errors?.minlength "> Name should contain atleast 3 characters </div>
+
+          <div class="invisible validation-font" *ngIf="!((name.touched) &&(name.errors?.required)||(name.errors?.minlength)) ">Name required</div>
+        </div>
+            <div class="col-md-6 col-sm-12">
+              <div><label for="brief" class="font-styling">Brief</label> 
+                  <input type="textarea"
+                    class="form-control" 
+                    id="brief" 
+                    name="brief"
+                    #brief="ngModel" 
+                    [(ngModel)]="stockExchange.brief" 
+                    placeholder="Enter brief" 
+                    required
+                    minlength="3" 
+                    maxlength="50">
+                  </div>
+                  <div class="validation-font" *ngIf="(brief.touched) && (brief.errors?.required) ">Brief required</div>
+                  <div class="validation-font" *ngIf="brief.errors?.minlength ">Brief should contain atleast 3 characters </div>
+    
+                  <div class="invisible validation-font" *ngIf="!((brief.touched) && (brief.errors?.required)||(brief.errors?.minlength)) ">Brief required</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div><label for="address" class="font-styling">Address</label> 
+                  <input type="textarea" 
+                    class="form-control"
+                    id="address" 
+                    name="address" 
+                    #address="ngModel" 
+                    [(ngModel)]="stockExchange.address" 
+                    placeholder="Enter Contact Number" 
+                    required 
+                    minlength="4" 
+                    maxlength="50">
+                  </div>
+                  <div class="validation-font" *ngIf="(address.touched) && (address.errors?.required) ">Address required</div>
+                  <div class="validation-font" *ngIf="address.errors?.minlength ">Address should contain 4 character </div>
+    
+                  <div class="invisible validation-font" *ngIf="!((address.touched) && (address.errors?.required)||(address.errors?.minlength)) ">address required</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div><label for="remark" class="font-styling">Remark</label> 
+                    <input type="textarea" 
+                      class="form-control"
+                      id="remark" 
+                      name="remark" 
+                      #remark="ngModel" 
+                      [(ngModel)]="stockExchange.remarks" 
+                      placeholder="Enter Remark" 
+                      required 
+                      minlength="3" 
+                      maxlength="50">
+                    </div>
+                    <div class="validation-font" *ngIf="(remark.touched) && (remark.errors?.required) ">Remark required</div>
+                    <div class="validation-font" *ngIf="remark.errors?.minlength ">Remark should contain 3 character </div>
+      
+                    <div class="invisible validation-font" *ngIf="!((remark.touched) && (remark.errors?.required)||(remark.errors?.minlength)) ">remark required</div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                  <div><label for="logo" class="font-styling">Url for logo</label> 
+                      <input type="text" 
+                        class="form-control"
+                        id="logo" 
+                        name="logo" 
+                        #logo="ngModel" 
+                        [(ngModel)]="stockExchange.logo" 
+                        placeholder="Enter Logo" 
+                        minlength="3" 
+                        maxlength="200">
+                      </div>
+                      <div class="validation-font" *ngIf="logo.errors?.minlength ">Logo should contain 3 character </div>
+        
+                      <div class="invisible validation-font" *ngIf="!((logo.touched) && (logo.errors?.required)||(logo.errors?.minlength)) ">logo required</div>
+                </div>
+          </div>
+
+          <div class="row p-3">
+            <div class="col-3">
+              <button type="button" class="btn btn-danger" (click)="addingStockExchange(stockExchange)"
+              [disabled]="!myform.valid">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

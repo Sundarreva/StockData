@@ -1,0 +1,5 @@
+package com.cognizant.uploadexcelservice.service;
+
+public interface StockExchangeService {
+
+}

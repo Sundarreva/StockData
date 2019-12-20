@@ -1,0 +1,72 @@
+<div class="sidebar col-auto ">
+  <a class="text-light font-italic"><i class=""></i> ADMIN Logged</a>
+  <div class="text-light border mb-3"></div>
+  <a class="btn text-left font-italic text-white" routerLink="/import" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">ImportData</a>
+  <a class="btn text-left font-italic text-white" routerLink="/stockexchange" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Stock Exchange</a>
+  <a class="btn text-left font-italic text-white" routerLink="/addstock" routerLinkActive="active-link">
+    <img src="https://img.icons8.com/office/30/000000/user.png">Add Stock</a>
+    <a class="btn text-left font-italic text-white" routerLink="/company" routerLinkActive="active-link">
+      <img src="https://img.icons8.com/office/30/000000/user.png">Companys</a>
+
+  <div class="m-2">
+    <button type="button" class="btn btn-labeled btn-success mx-2">
+      <span class="btn-label"><i class="material-icons icon-align">feedback</i></span>Feedback</button>
+  </div>
+</div>
+
+<div class="main row m-4 d-flex justify-content-center" [ngClass]=" addStatus == 'added' ? '' : 'invisible' ">
+  <div class="col-5 alert alert-success">
+    Stock details added successfully..,
+  </div>
+
+</div>
+<!-- stock details card -->
+
+<div class="row main mt-5">
+
+ 
+
+
+
+
+  <div class="card col-sm-9 col-md-5 col-lg-3 m-2" *ngFor="let stock of stockData">
+    <div class="embed-responsive embed-responsive-16by9">
+      <img alt="Card image cap" class="card-img-top embed-responsive-item" src={{stock.logoUrl}} />
+    </div>
+    <div class="card-block">
+
+      <h2 class="card-title">{{stock.stockExchange}}</h2>
+
+      <div class="d-flex justify-content-center">
+        <div class="font-weight-bold">
+          <h4> Brief </h4>
+        </div>
+      </div>
+      <div>
+        <span class="text-muted">{{stock.brief}}</span>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="font-weight-bold">
+          <h4> remarks </h4>
+        </div>
+      </div>
+      <div>
+        <span class="text-muted">{{stock.remarks}}</span>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="font-weight-bold">
+          <h4>address</h4>
+        </div>
+      </div>
+      <div>
+        <span class="text-muted">{{stock.address}}</span>
+      </div>
+
+
+    </div>
+  </div>
+</div>

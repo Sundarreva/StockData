@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AuthenticationServiceApplicationMVCTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Merged (20 Dec, 2019 11:29:24 AM)</a> &gt; <a href="../../index.html" class="el_group">authentication-service</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.cognizant.authenticationservice</a> &gt; <span class="el_source">AuthenticationServiceApplicationMVCTest.java</span></div><h1>AuthenticationServiceApplicationMVCTest.java</h1><pre class="source lang-java linenums">package com.cognizant.authenticationservice;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.cognizant.authenticationservice.entity.Role;
+import com.cognizant.authenticationservice.entity.User;
+import com.cognizant.authenticationservice.repository.ConfirmationTokenRepository;
+import com.cognizant.authenticationservice.repository.RoleRepository;
+import com.cognizant.authenticationservice.repository.UserRepository;
+import com.cognizant.authenticationservice.security.AppUserDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
+<span class="fc" id="L30">public class AuthenticationServiceApplicationMVCTest {</span>
+	
+	@Autowired
+	AppUserDetailsService appUserDetailsService;
+	
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@MockBean
+	UserRepository userRepository;
+	
+	@MockBean
+	RoleRepository roleRepository;
+	
+	@MockBean
+	ConfirmationTokenRepository confirmationTokenRepository;
+	
+	@Test
+	public void addUser() throws Exception {
+
+<span class="fc" id="L50">		Set&lt;Role&gt; role = new HashSet&lt;Role&gt;();</span>
+<span class="fc" id="L51">		role.add(new Role(2, &quot;USER&quot;));</span>
+
+<span class="fc" id="L53">		mockMvc.perform(MockMvcRequestBuilders.post(&quot;/stockmarket/user/signup&quot;)</span>
+<span class="fc" id="L54">				.content(asJsonString(new User(17, &quot;users88&quot;, &quot;abcd&quot;,role ,&quot;mailid@mail.com&quot;, &quot;9978876678&quot;, true)))</span>
+<span class="fc" id="L55">				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());</span>
+		
+<span class="fc" id="L57">	}</span>
+	
+	@Test
+	public void addUserwithfalse() throws Exception {
+
+<span class="fc" id="L62">		Set&lt;Role&gt; role = new HashSet&lt;Role&gt;();</span>
+<span class="fc" id="L63">		role.add(new Role(2, &quot;USER&quot;));</span>
+
+<span class="fc" id="L65">		mockMvc.perform(MockMvcRequestBuilders.post(&quot;/stockmarket/user/signup&quot;)</span>
+<span class="fc" id="L66">				.content(asJsonString(new User(17, &quot;users88&quot;, &quot;abcd&quot;,role ,&quot;mailid@mail.com&quot;, &quot;9978876678&quot;, false)))</span>
+<span class="fc" id="L67">				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());</span>
+		
+<span class="fc" id="L69">	}</span>
+	
+	@Test
+	public void updateUser() throws Exception {
+
+<span class="fc" id="L74">		Set&lt;Role&gt; role = new HashSet&lt;Role&gt;();</span>
+<span class="fc" id="L75">		role.add(new Role(2, &quot;USER&quot;));</span>
+
+<span class="fc" id="L77">		mockMvc.perform(MockMvcRequestBuilders.put(&quot;/stockmarket/user&quot;,&quot;Bearer user:pwd&quot;)</span>
+<span class="fc" id="L78">				.content(asJsonString(new User(0, &quot;users88&quot;, &quot;abcd&quot;,role ,&quot;mailid@mail.com&quot;, &quot;9978876678&quot;, true)))</span>
+<span class="pc" id="L79">				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());</span>
+		
+<span class="nc" id="L81">	}	</span>
+	
+	
+	
+	public static String asJsonString(final Object obj) {
+		try {
+<span class="fc" id="L87">			return new ObjectMapper().writeValueAsString(obj);</span>
+<span class="nc" id="L88">		} catch (Exception e) {</span>
+<span class="nc" id="L89">			throw new RuntimeException(e);</span>
+		}
+	}
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>Merged (20 Dec, 2019 11:29:24 AM)</div></body></html>

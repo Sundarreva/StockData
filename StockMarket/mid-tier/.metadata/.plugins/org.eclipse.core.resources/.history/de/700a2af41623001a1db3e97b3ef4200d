@@ -1,0 +1,5 @@
+package com.cognizant.authenticationservice.service;
+
+public interface UserService {
+
+}
